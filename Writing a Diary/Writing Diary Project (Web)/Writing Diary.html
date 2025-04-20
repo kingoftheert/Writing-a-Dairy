@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing Diary</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<style>
+  /* Center all the elements */
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #272727;
+    background-image: url(https://lh5.googleusercontent.com/proxy/xvtq6_782kBajCBr0GISHpujOb51XLKUeEOJ2lLPKh12-xNBTCtsoHT14NQcaH9l4JhatcXEMBkqgUeCWhb3XhdLnD1BiNzQ_LVydwg=w3840-h2160-p-k-no-nd-mv);
+    background-size: cover;
+  }
+
+  /* style the title */
+  h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #FFFFFF;
+  }
+
+  /* style the chat window container */
+  .chat-container {
+    animation: glowing 4s infinite;
+  }
+
+  @keyframes glowing {
+    0% {
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+    }
+    100% {
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+  }
+
+
+  /* style user and bot messages */
+  .message {
+    margin-top: 15px;
+    margin-block-end: 0%;
+  }
+  .bot-message {
+    margin-bottom: 10px;
+    color: #FFFFFF;
+    font-weight: bold;
+  }
+
+  .user-message {
+    margin-right: auto;
+  }
+
+  /* style the textarea */
+  textarea {
+    width: 1000px;
+    height: 150px;
+    resize: vertical; /* Allow vertical resizing */
+  }
+
+  /* Move "Enter text" above the input box */
+  .user-input label {
+    display: block;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+    font-weight: bold;
+  }
+
+  .user-message {
+    margin-right: 474px;
+    color: #FFFFFF;
+    font-weight: bold;
+  }
+
+</style>
+
+<body>
+  <h1>Encrypt And Decrypt</h1>
+
+<div class="chat-container">
+  
+  <div class="message">
+    <div class="user-input">
+      <label for="text">Enter text:</label>
+      <textarea id="text" class="form-control" rows="5" placeholder="Type your text here..."></textarea>
+    </div>
+  </div>
+  <div class="message">
+    <div class="user-message">Enter keyword:</div>
+    <input type="text" id="keyword" class="form-control">
+  </div>
+  <div class="message chat-buttons">
+    <button onclick="encryptText()">Encrypt</button>
+    <button onclick="decryptText()">Decrypt</button>
+  </div>
+  <div class="message">
+    <div class="bot-message">Result:</div>
+    <textarea id="result" class="form-control" rows="5" readonly></textarea>
+  </div>
+</div>
+  <script>
+    function encryptText() {
+      var text = document.getElementById("text").value;
+      var keyword = document.getElementById("keyword").value;
+      var encrypted = encryptWithKeywordCipher(text, keyword);
+      document.getElementById("result").value = encrypted;
+    }
+
+    function decryptText() {
+      var encrypted = document.getElementById("text").value;
+      var keyword = document.getElementById("keyword").value;
+      var decrypted = decryptWithKeywordCipher(encrypted, keyword);
+      document.getElementById("result").value = decrypted;
+    }
+
+    function encryptWithKeywordCipher(text, keyword) {
+      var alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+      var cipher = "";
+      var key = "";
+
+      // Remove repeated letters from keyword
+      for (var i = 0; i < keyword.length; i++) {
+        if (key.indexOf(keyword.charAt(i)) == -1) {
+          key += keyword.charAt(i);
+        }
+      }
+
+      // Generate cipher alphabet
+      for (var i = 0; i < key.length; i++) {
+        if (cipher.indexOf(key.charAt(i)) == -1) {
+          cipher += key.charAt(i);
+        }
+      }
+
+      for (var i = 0; i < alphabet.length; i++) {
+        if (cipher.indexOf(alphabet.charAt(i)) == -1) {
+          cipher += alphabet.charAt(i);
+        }
+      }
+
+      // Encrypt text
+      var encrypted = "";
+
+      for (var i = 0; i < text.length; i++) {
+        var c = text.charAt(i);
+
+        if (c >= 'a' && c <= 'z') {
+          encrypted += cipher.charAt(alphabet.indexOf(c));
+        } else if (c >= 'A' && c <= 'Z') {
+          encrypted += cipher.charAt(alphabet.indexOf(c.toLowerCase())).toUpperCase();
+        } else if (c >= '0' && c <= '9') {
+          encrypted += cipher.charAt(alphabet.indexOf(c));
+        } else {
+          encrypted += c;
+        }
+      }
+
+      return encrypted;
+    }
+
+    function decryptWithKeywordCipher(encrypted, keyword) {
+      var alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+      var cipher = "";
+      var key = "";
+
+      // Remove repeated letters from keyword
+      for (var i = 0; i < keyword.length; i++) {
+        if (key.indexOf(keyword.charAt(i)) == -1) {
+          key += keyword.charAt(i);
+        }
+      }
+
+      // Generate cipher alphabet
+      for (var i = 0; i < key.length; i++) {
+        if (cipher.indexOf(key.charAt(i)) == -1) {
+          cipher += key.charAt(i);
+        }
+      }
+
+      for (var i = 0; i < alphabet.length; i++) {
+        if (cipher.indexOf(alphabet.charAt(i)) == -1) {
+          cipher += alphabet.charAt(i);
+        }
+      }
+
+      // Decrypt text
+      var decrypted = "";
+
+      for (var i = 0; i < encrypted.length; i++) {
+        var c = encrypted.charAt(i);
+
+        if (c >= 'a' && c <= 'z') {
+          decrypted += alphabet.charAt(cipher.indexOf(c));
+        } else if (c >= 'A' && c <= 'Z') {
+          decrypted += alphabet.charAt(cipher.indexOf(c.toLowerCase())).toUpperCase();
+        } else if (c >= '0' && c <= '9') {
+          decrypted += alphabet.charAt(cipher.indexOf(c));
+        } else {
+          decrypted += c;
+        }
+      }
+
+      return decrypted;
+    }
+  </script>
+</body>
+</html>
+				

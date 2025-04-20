@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encrypt and Decrypt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <!-- Calendar Section -->
+            <div class="col-custom-2-7 calendar-container">
+                <div class="calendar-header">
+                    <button id="prev-month">&lt;</button>
+                    <h2 id="month-year"></h2>
+                    <button id="next-month">&gt;</button>
+                </div>
+                <div class="calendar-grid">
+                    <div id="calendar-days"></div>
+                </div>
+                <script src="calendar.js"></script>
+            </div>
+
+            <!-- Main Content Section -->
+            <div class="col-custom-5-7 container">
+                <h1>Encrypt and Decrypt</h1>
+                <div class="form-group">
+                    <label for="text">Enter Text:</label>
+                    <textarea id="text" rows="4" placeholder="Type your text here..."></textarea>
+                    <button id="start-speech" onclick="startSpeechRecognition()">🎤 Start Speech</button>
+                </div>
+                <div class="form-group">
+                    <label for="keyword">Enter Keyword:</label>
+                    <input type="text" id="keyword" placeholder="Type your keyword here...">
+                </div>
+                <div class="buttons">
+                    <button class="encrypt" onclick="encryptText()">Encrypt</button>
+                    <button class="decrypt" onclick="decryptText()">Decrypt</button>
+                </div>
+                <div class="form-group result">
+                    <label for="result">Result:</label>
+                    <textarea id="result" rows="4" readonly></textarea>
+                </div>
+                <div class="buttons">
+                    <button class="save" onclick="saveResult()">Save Result</button>
+                    <button class="read" onclick="readDiary()">Read Diary</button>
+                </div>
+            </div>
+            <script src="script.js"></script>
+        </div>
+    </div>
+</body>
+</html>

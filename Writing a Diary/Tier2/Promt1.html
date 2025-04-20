@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encrypt and Decrypt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #1e1e2f;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #2a2a3d;
+      border-radius: 10px;
+      padding: 30px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #ffcc00;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #ffcc00;
+    }
+
+    textarea, input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #3a3a4f;
+      color: #ffffff;
+      font-size: 16px;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.encrypt {
+      background-color: #4caf50;
+      color: #ffffff;
+    }
+
+    button.encrypt:hover {
+      background-color: #45a049;
+    }
+
+    button.decrypt {
+      background-color: #f44336;
+      color: #ffffff;
+    }
+
+    button.decrypt:hover {
+      background-color: #e53935;
+    }
+
+    button.save {
+      background-color: #2196f3;
+      color: #ffffff;
+    }
+
+    button.save:hover {
+      background-color: #1e88e5;
+    }
+
+    .result {
+      margin-top: 20px;
+    }
+
+    .result textarea {
+      background-color: #3a3a4f;
+      color: #ffffff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Encrypt and Decrypt</h1>
+    <div class="form-group">
+      <label for="text">Enter Text:</label>
+      <textarea id="text" rows="4" placeholder="Type your text here..."></textarea>
+    </div>
+    <div class="form-group">
+      <label for="keyword">Enter Keyword:</label>
+      <input type="text" id="keyword" placeholder="Type your keyword here...">
+    </div>
+    <div class="buttons">
+      <button class="encrypt" onclick="encryptText()">Encrypt</button>
+      <button class="decrypt" onclick="decryptText()">Decrypt</button>
+    </div>
+    <div class="form-group result">
+      <label for="result">Result:</label>
+      <textarea id="result" rows="4" readonly></textarea>
+    </div>
+    <div class="buttons">
+      <button class="save" onclick="saveResult()">Save Result</button>
+    </div>
+  </div>
+  <script>
+    function encryptText() {
+      var text = document.getElementById("text").value;
+      var keyword = document.getElementById("keyword").value;
+      var encrypted = encryptWithKeywordCipher(text, keyword);
+      document.getElementById("result").value = encrypted;
+    }
+
+    function decryptText() {
+      var encrypted = document.getElementById("text").value;
+      var keyword = document.getElementById("keyword").value;
+      var decrypted = decryptWithKeywordCipher(encrypted, keyword);
+      document.getElementById("result").value = decrypted;
+    }
+
+    function saveResult() {
+      var result = document.getElementById("result").value;
+      var keyword = document.getElementById("keyword").value;
+
+      if (!result) {
+        alert("No result to save!");
+        return;
+      }
+
+      if (!keyword) {
+        alert("Please enter a keyword!");
+        return;
+      }
+
+      // Append the keyword to the result
+      var contentToSave = `${result}\n\n'${keyword}'`;
+
+      // Get the current date
+      var now = new Date();
+      var day = now.getDate();
+      var month = now.getMonth() + 1; // Months are zero-based
+      var year = now.getFullYear();
+
+      // Get the day of the week in Vietnamese
+      var daysOfWeek = ["CN", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
+      var vietnameseDay = daysOfWeek[now.getDay()];
+
+      // Format the file name
+      var fileName = `${vietnameseDay} ngày ${day} tháng ${month} năm ${year}.txt`;
+
+      // Create a Blob and trigger the download
+      var blob = new Blob([contentToSave], { type: "text/plain" });
+      var link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = fileName;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    function encryptWithKeywordCipher(text, keyword) {
+      var alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+      var cipher = "";
+      var key = "";
+
+      for (var i = 0; i < keyword.length; i++) {
+        if (key.indexOf(keyword.charAt(i)) == -1) {
+          key += keyword.charAt(i);
+        }
+      }
+
+      for (var i = 0; i < key.length; i++) {
+        if (cipher.indexOf(key.charAt(i)) == -1) {
+          cipher += key.charAt(i);
+        }
+      }
+
+      for (var i = 0; i < alphabet.length; i++) {
+        if (cipher.indexOf(alphabet.charAt(i)) == -1) {
+          cipher += alphabet.charAt(i);
+        }
+      }
+
+      var encrypted = "";
+
+      for (var i = 0; i < text.length; i++) {
+        var c = text.charAt(i);
+
+        if (c >= 'a' && c <= 'z') {
+          encrypted += cipher.charAt(alphabet.indexOf(c));
+        } else if (c >= 'A' && c <= 'Z') {
+          encrypted += cipher.charAt(alphabet.indexOf(c.toLowerCase())).toUpperCase();
+        } else if (c >= '0' && c <= '9') {
+          encrypted += cipher.charAt(alphabet.indexOf(c));
+        } else {
+          encrypted += c;
+        }
+      }
+
+      return encrypted;
+    }
+
+    function decryptWithKeywordCipher(encrypted, keyword) {
+      var alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+      var cipher = "";
+      var key = "";
+
+      for (var i = 0; i < keyword.length; i++) {
+        if (key.indexOf(keyword.charAt(i)) == -1) {
+          key += keyword.charAt(i);
+        }
+      }
+
+      for (var i = 0; i < key.length; i++) {
+        if (cipher.indexOf(key.charAt(i)) == -1) {
+          cipher += key.charAt(i);
+        }
+      }
+
+      for (var i = 0; i < alphabet.length; i++) {
+        if (cipher.indexOf(alphabet.charAt(i)) == -1) {
+          cipher += alphabet.charAt(i);
+        }
+      }
+
+      var decrypted = "";
+
+      for (var i = 0; i < encrypted.length; i++) {
+        var c = encrypted.charAt(i);
+
+        if (c >= 'a' && c <= 'z') {
+          decrypted += alphabet.charAt(cipher.indexOf(c));
+        } else if (c >= 'A' && c <= 'Z') {
+          decrypted += alphabet.charAt(cipher.indexOf(c.toLowerCase())).toUpperCase();
+        } else if (c >= '0' && c <= '9') {
+          decrypted += alphabet.charAt(cipher.indexOf(c));
+        } else {
+          decrypted += c;
+        }
+      }
+
+      return decrypted;
+    }
+  </script>
+</body>
+</htm<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encrypt and Decrypt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+</head>
+<body>
+  <div class="container">
+    <h1>Encrypt and Decrypt</h1>
+    <div class="form-group">
+      <label for="text">Enter Text:</label>
+      <textarea id="text" rows="4" placeholder="Type your text here..."></textarea>
+    </div>
+    <div class="form-group">
+      <label for="keyword">Enter Keyword:</label>
+      <input type="text" id="keyword" placeholder="Type your keyword here...">
+    </div>
+    <div class="buttons">
+      <button class="encrypt" onclick="encryptText()">Encrypt</button>
+      <button class="decrypt" onclick="decryptText()">Decrypt</button>
+    </div>
+    <div class="form-group result">
+      <label for="result">Result:</label>
+      <textarea id="result" rows="4" readonly></textarea>
+    </div>
+    <div class="buttons">
+      <button class="save" onclick="saveResult()">Save Result</button>
+    </div>
+  </div>
+  <script src="script.js"></script> <!-- Link to external JavaScript -->
+</body>
+</htm<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encrypt and Decrypt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+</head>
+<body>
+  <div class="container">
+    <h1>Encrypt and Decrypt</h1>
+    <div class="form-group">
+      <label for="text">Enter Text:</label>
+      <textarea id="text" rows="4" placeholder="Type your text here..."></textarea>
+    </div>
+    <div class="form-group">
+      <label for="keyword">Enter Keyword:</label>
+      <input type="text" id="keyword" placeholder="Type your keyword here...">
+    </div>
+    <div class="buttons">
+      <button class="encrypt" onclick="encryptText()">Encrypt</button>
+      <button class="decrypt" onclick="decryptText()">Decrypt</button>
+    </div>
+    <div class="form-group result">
+      <label for="result">Result:</label>
+      <textarea id="result" rows="4" readonly></textarea>
+    </div>
+    <div class="buttons">
+      <button class="save" onclick="saveResult()">Save Result</button>
+    </div>
+  </div>
+  <script src="script.js"></script> <!-- Link to external JavaScript -->
+</body>
+</html>l>l>

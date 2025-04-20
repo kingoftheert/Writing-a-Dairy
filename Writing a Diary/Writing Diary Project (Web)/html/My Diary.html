@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<hmtl>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Writing Diary</title>
+
+        <link rel="stylesheet" href="/css/styles.css">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+        <script src="/js/Jquery.js"></script>
+        <script src="/js/EncryptnDecryptFunctions.js"></script>
+    </head>
+
+    <body>
+        <!--Header starts here-->
+        <div class="row">
+            <div class="col-12">
+                <div class="header ">
+                    <h1>Encrypt and Decrypt by Ngo Van Tuyen</h1>
+                </div>
+            </div>
+        </div>
+
+        <!--Menu starts here-->
+        <nav class="nav navbar" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar" style="background: #99CC33"></span>
+						<span class="icon-bar" style="background: #99CC33"></span>
+						<span class="icon-bar" style="background: #99CC33"></span>
+					</button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="My Diary.html">DiaryWriter</a></li>
+                        <li><a href="World Dairy.html">World Diary</a></li>
+                        <li><a href="Daily Dreamer.html">Daily Dreamer</a></li>
+                        <li><a href="Story Teller.html">Story Teller</a></li>
+                        <li><a href="About Author.html">About Author</a></li>
+                        <li><a href="Contact.html">Contact</a></li>
+
+                    </ul>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search...">
+                        </div>
+                        <button type="Tìm Sản Phẩm" class="btn btn-green glyphicon glyphicon-search"></button>
+                    </form>
+
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+
+        <div class="container mt-3">
+            <div class="containerBox">
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <label for="text">Enter text:</label>
+                        <textarea id="text" class="form-control" rows="5" style="height: 200px; width: 1100px;" placeholder="Type your text here..."></textarea>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <label for="keyword">Enter keyword:</label>
+                        <input type="text" id="keyword" class="form-control" row="1" style=" width: 400px;" placeholder="Type in keyword...">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <button class="btn btn-primary mr-2" onclick="encryptText()">Encrypt</button>
+                        <button class="btn btn-secondary" onclick="decryptText()">Decrypt</button>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <label for="result">Result:</label>
+                        <textarea id="result" class="form-control" rows="5" style="height: 200px; width: 1100px;" placeholder="Your encrypted text show here..." readonly></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="diary-storage"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</hmtl>

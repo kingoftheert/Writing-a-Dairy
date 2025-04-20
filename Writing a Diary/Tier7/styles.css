@@ -1,0 +1,333 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Theme variables */
+:root {
+  /* Dark theme */
+  --dark-bg: #1a1a2e;
+  --dark-card: #2a2a3d;
+  --dark-text: #e0e0e0;
+  --dark-border: #3a3a4d;
+  --dark-hover: #3a3a5d;
+  
+  /* Light theme */
+  --light-bg: #f5f5f5;
+  --light-card: #ffffff;
+  --light-text: #333333;
+  --light-border: #dddddd;
+  --light-hover: #e9ecef;
+}
+
+/* Theme-specific styles */
+[data-bs-theme="dark"] {
+  --bs-body-bg: var(--dark-bg);
+  --bs-body-color: var(--dark-text);
+  --calendar-bg: var(--dark-card);
+  --calendar-border: var(--dark-border);
+  --calendar-hover: var(--dark-hover);
+}
+
+[data-bs-theme="light"] {
+  --bs-body-bg: var(--light-bg);
+  --bs-body-color: var(--light-text);
+  --calendar-bg: var(--light-card);
+  --calendar-border: var(--light-border);
+  --calendar-hover: var(--light-hover);
+}
+
+/* Base layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+
+.container-fluid {
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.row {
+  flex: 1;
+  margin: 0;
+  width: 100%;
+}
+
+/* Calendar container */
+.col-md-4.col-lg-3 {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  max-width: 500px;
+  overflow-y: auto;
+}
+
+.col-md-4.col-lg-3 .card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.col-md-4.col-lg-3 .card-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gap);
+}
+
+/* Calendar grid */
+.calendar-days {
+  --rows: 7;
+  --gap: 4px;
+  --calendar-width: min(100%, 500px);
+  --available-space: calc(var(--calendar-width) - (var(--gap) * (var(--rows) - 1)));
+  --cell-size: calc(var(--available-space) / var(--rows));
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--gap);
+  width: var(--calendar-width);
+  margin: 0 auto;
+  padding: var(--gap);
+}
+
+.day-name {
+  text-align: center;
+  font-weight: 600;
+  color: var(--bs-primary);
+  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  text-transform: uppercase;
+  padding: calc(var(--gap) / 2);
+  height: var(--cell-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-day, .empty {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+}
+
+.calendar-day {
+  cursor: pointer;
+  background: var(--calendar-bg);
+  border: 1px solid var(--calendar-border);
+  border-radius: calc(var(--gap) / 2);
+  transition: transform 0.2s ease;
+}
+
+.calendar-day::after {
+  content: attr(data-day);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.8rem, calc(var(--cell-size) / 3), 1rem);
+}
+
+/* State styles */
+.calendar-day:hover {
+  transform: scale(1.1);
+  z-index: 1;
+  background: var(--calendar-hover);
+}
+
+.calendar-day.today {
+  background: var(--bs-primary);
+  color: white;
+  font-weight: bold;
+}
+
+.calendar-day.selected {
+  background: var(--bs-success);
+  color: white;
+  font-weight: bold;
+}
+
+/* Main content section */
+.col-md-8.col-lg-9 {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.col-md-8.col-lg-9 .card {
+  height: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.col-md-8.col-lg-9 .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Card body padding adjustment */
+.card-body {
+  padding: 0.5rem !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form elements */
+.form-control {
+  background-color: var(--bs-dark);
+  border-color: var(--bs-gray-700);
+  color: var(--bs-light);
+}
+
+.form-control:focus {
+  background-color: var(--bs-dark);
+  border-color: var(--bs-primary);
+  color: var(--bs-light);
+}
+
+/* Form layout */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+textarea.form-control {
+  min-height: 120px;
+  max-height: 500px;
+  height: auto;
+  resize: none;
+  overflow-y: auto;
+  transition: height 0.1s ease;
+}
+
+#text, #result {
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+/* Theme toggle button */
+#theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1050;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--calendar-bg);
+  border: 2px solid var(--calendar-border);
+  color: var(--bs-body-color);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#theme-toggle:hover {
+  transform: rotate(15deg) scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#theme-toggle i {
+  font-size: 1.2rem;
+}
+
+/* Responsive theme toggle */
+@media (max-width: 768px) {
+  #theme-toggle {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 768px) {
+  .container-fluid {
+    flex-direction: column;
+  }
+
+  .calendar-days {
+    --min-cell: min(40px, calc((100% - 24px) / 7));
+    gap: 2px;
+  }
+
+  .col-md-4.col-lg-3 {
+    position: relative;
+    height: auto;
+    min-height: 360px;
+    width: 100%;
+  }
+
+  .col-md-8.col-lg-9 {
+    height: auto;
+    min-height: 0;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .card-body {
+    padding: 0.75rem;
+  }
+
+  .day-name {
+    font-size: 0.75rem;
+  }
+
+  .calendar-day::after {
+    font-size: clamp(0.7rem, 4vw, 0.9rem);
+  }
+
+  .calendar-day {
+    font-size: 0.85rem;
+  }
+
+  .col-md-4.col-lg-3 .card-body {
+    padding: 4px;
+  }
+}
+
+@media (max-width: 576px) {
+  .calendar-days {
+    aspect-ratio: auto;
+    min-height: 300px;
+  }
+
+  .day-name {
+    font-size: 0.7rem;
+  }
+
+  .calendar-day {
+    font-size: 0.8rem;
+  }
+}
+
+/* Ultra-wide screen support */
+@media (min-width: 1400px) {
+  .col-md-4.col-lg-3 {
+    max-width: min(500px, 30vw);
+  }
+}

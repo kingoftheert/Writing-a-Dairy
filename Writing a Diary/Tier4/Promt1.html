@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encrypt and Decrypt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+</head>
+<body>
+  <div class="container">
+    <h1>Encrypt and Decrypt</h1>
+
+    <!-- Text and Result Section -->
+    <div class="text-and-result">
+      <div class="form-group">
+        <label for="text" class="form-label text-warning">Enter Text:</label>
+        <textarea id="text" rows="7" placeholder="Type your text here..."></textarea>
+        <button id="start-speech" class="btn btn-secondary mt-3 w-100" onclick="startSpeechRecognition()">🎤 Start Speech</button>
+      </div>
+      <div class="form-group">
+        <label for="result" class="form-label text-warning">Result:</label>
+        <textarea id="result" rows="7" readonly></textarea>
+      </div>
+    </div>
+
+    <!-- Keyword Section -->
+    <div class="form-group mb-4">
+      <label for="keyword" class="form-label text-warning">Keyword:</label>
+      <input type="text" id="keyword" class="form-control" placeholder="Enter your keyword here...">
+    </div>
+
+    <!-- Buttons Section -->
+    <div class="buttons">
+      <button class="encrypt" onclick="encryptText()">Encrypt</button>
+      <button class="decrypt" onclick="decryptText()">Decrypt</button>
+      <button class="save" onclick="saveResult()">Save Result</button>
+      <button class="read" onclick="readDiary()">Read Diary</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script> <!-- Link to external JavaScript -->
+</body>
+</html>

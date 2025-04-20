@@ -1,0 +1,133 @@
+/* Redesigned styles for a modern and visually appealing layout */
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Updated styles for a space-like theme */
+body {
+  font-family: 'Orbitron', sans-serif; /* Space-like font */
+  background: radial-gradient(circle, #0f0f1e, #1e1e2f); /* Space-like gradient */
+  color: #d1d1e0; /* Light space-like text color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  background-color: rgba(42, 42, 61, 0.9);
+  border-radius: 15px;
+  padding: 40px;
+  width: 100%;
+  max-width: 1500px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 36px;
+  color: #00ccff; /* Neon blue for space theme */
+}
+
+.text-and-result {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.text-and-result .form-group {
+  flex: 1;
+}
+
+textarea {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #1a1a2e; /* Darker background for text areas */
+  color: #00ffcc; /* Neon green text */
+  font-family: 'Courier New', monospace; /* Monospace font for text areas */
+  font-size: 16px;
+  resize: none;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+textarea:focus {
+  outline: none;
+  border: 2px solid #00ccff; /* Neon blue border on focus */
+}
+
+#keyword {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #1a1a2e; /* Darker background for input */
+  color: #00ffcc; /* Neon green text */
+  font-family: 'Courier New', monospace; /* Monospace font for input */
+  font-size: 16px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#keyword:focus {
+  outline: none;
+  border: 2px solid #00ccff; /* Neon blue border on focus */
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+button {
+  padding: 15px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+  font-family: 'Orbitron', sans-serif; /* Space-like font for buttons */
+  text-transform: uppercase; /* Uppercase for a futuristic look */
+  background-color: #808080; /* Gray background for all buttons */
+  color: #ffffff; /* White text for readability */
+}
+
+button:hover {
+  transform: scale(1.05);
+  background-color: #505050; /* Dark gray on hover */
+}
+
+button.encrypt,
+button.decrypt,
+button.save,
+button.read {
+  background-color: #808080; /* Ensure all buttons have the same gray background */
+}
+
+button.encrypt:hover,
+button.decrypt:hover,
+button.save:hover,
+button.read:hover {
+  background-color: #505050; /* Ensure all buttons have the same dark gray hover effect */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .text-and-result {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}

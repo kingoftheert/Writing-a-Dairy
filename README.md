@@ -11,7 +11,7 @@ EX: "tuendapr2025"
 
 ![image](https://github.com/user-attachments/assets/5ed5ab4d-5ac1-4ff4-8c5e-81bb12fba2ee)
 
-_Use for studied purpose only_
+_Uses for studied purpose only_
 
 _Future improvement:
 

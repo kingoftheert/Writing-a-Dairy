@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encrypt and Decrypt</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="btn btn-outline-secondary" data-bs-toggle="tooltip" title="Toggle Theme">
+            <i class="bi bi-moon-stars-fill"></i>
+        </button>
+
+        <div class="row">
+            <!-- Calendar Section -->
+            <div class="col-md-5 col-lg-3">
+                <div class="card">
+                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                        <button id="prev-month" class="btn btn-link text-white" data-bs-toggle="tooltip" title="Previous Month">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <h2 id="month-year" class="mb-0 fs-5"></h2>
+                        <button id="next-month" class="btn btn-link text-white" data-bs-toggle="tooltip" title="Next Month">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="calendar-days" class="calendar-days"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Section -->
+            <div class="col-md-7 col-lg-9">
+                <div class="card h-100 border-0">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">Encrypt and Decrypt</h1>
+                        
+                        <div class="mb-4">
+                            <label for="text" class="form-label">Enter Text:</label>
+                            <div class="input-group">
+                                <textarea id="text" class="form-control" rows="4" placeholder="Type your text here..."></textarea>
+                                <button id="start-speech" class="btn btn-outline-primary d-flex align-items-center px-3" 
+                                    onclick="startSpeechRecognition()" 
+                                    data-bs-toggle="tooltip" 
+                                    title="Start Voice Input">
+                                    <i class="bi bi-mic-fill fs-4"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="keyword" class="form-label">Enter Keyword:</label>
+                            <input type="text" id="keyword" class="form-control" placeholder="Type your keyword here...">
+                        </div>
+
+                        <div class="d-flex gap-2 mb-4">
+                            <button class="btn btn-success flex-grow-1" onclick="encryptText()" data-bs-toggle="tooltip" title="Encrypt your text">
+                                <i class="bi bi-lock-fill me-2"></i>Encrypt
+                            </button>
+                            <button class="btn btn-danger flex-grow-1" onclick="decryptText()" data-bs-toggle="tooltip" title="Decrypt your text">
+                                <i class="bi bi-unlock-fill me-2"></i>Decrypt
+                            </button>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="result" class="form-label">Result:</label>
+                            <textarea id="result" class="form-control" rows="4" readonly></textarea>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary flex-grow-1" onclick="saveResult()" data-bs-toggle="tooltip" title="Save to file">
+                                <i class="bi bi-save-fill me-2"></i>Save Result
+                            </button>
+                            <button class="btn btn-warning flex-grow-1" onclick="readDiary()" data-bs-toggle="tooltip" title="Read from file">
+                                <i class="bi bi-journal-text me-2"></i>Read Diary
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="calendar.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

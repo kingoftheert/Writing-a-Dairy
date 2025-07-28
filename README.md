@@ -1,4 +1,10 @@
 # Writing-a-Dairy
+1/Pull the repo
+2/Create a newfolder to save your dairies inside the project folder 
+3/Check the sever.js
+4/Run the Run_sever.bat
+5/Check if the port 3000 is available
+6/Go to http://localhost:3000/ to use this webapp
 
 A website tool to save your diary with an easy cipher.
 
@@ -30,3 +36,4 @@ _Future improvement:
 + Customizable Interface.
 
 + Accessibility Features. (Add features like screen readers or high-contrast modes to make the tool more accessible to users with disabilities.)
+
